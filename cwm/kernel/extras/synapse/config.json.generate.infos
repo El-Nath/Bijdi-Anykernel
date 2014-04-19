@@ -1,0 +1,43 @@
+cat << CTAG
+{
+    name:INFOS,
+    elements:[
+        { SPane:{
+                title:"Disclaimer",
+                description:"What you've done is all yours,I am not responsible for anything that might happens to your device "
+        }},
+		{ SPane:{
+                title:"History",
+                description:"This kernel is based on AOKP + OMNI repo and its been built solely on purpose to work on AOKP/OMNI rom  ."
+        }},
+        { SPane:{
+				title:"Version",
+				description:"`cat /proc/version`"
+		}},
+        { STitleBar:{
+				title:"Soc Binning"
+				}},
+				{ SDescription:{
+					description:"Cpu pvs: `cat /sys/kernel/debug/acpuclk/pvs_bin`"
+				}},
+				{ SDescription:{
+					description:"Values: 1 (Slow), 2 (Nominal), 3 (Fast), 4 (Faster). Process Voltage Scaling binning indicates a chip's quality, higher binning it is, the lower voltage is supplied at the same frequency."
+				}},
+				{ SDescription:{
+					description:"Cpu speed: `cat /sys/kernel/debug/acpuclk/speed_bin`"
+				}},
+				{ SDescription:{
+					description:"Values: from 0 (Lowest) to 14 (Higher). Once the chips have been packaged they go through a class testing or binning process whereby their thermal and frequency characteristics will be analysed. Think of it as an audition process, with each chip hoping to be capable of getting a role at the top end of the range, running at the highest frequencies. Unfortunately, due to tiny variances in the production process, some chips may not run as well and will have to be content with being binned as lower range chips."
+				}},
+        { STitleBar:{
+				title:"Links"
+				}},
+                { SDescription:{
+					description:"Xda Thread: <br><a href='http://goo.gl/hkCTOq'>> Find 5 BIDJI </a>"
+				}},
+				{ SDescription:{
+					description:"Github Source: <br><a href='http://goo.gl/C4n5ae'>> Github </a>"
+				}},
+	]
+}
+CTAG

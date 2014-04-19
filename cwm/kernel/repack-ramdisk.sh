@@ -1,4 +1,11 @@
 #!/sbin/sh
+
+# copy old kernel to sdcard
+if [ ! -e /sdcard/bj_zImage ]; then
+	cp /tmp/boot.img-zImage /sdcard/bj_zImage
+fi
+
+# decompress ramdisk
 mkdir /tmp/ramdisk
 cd /tmp/ramdisk
 gunzip -c ../boot.img-ramdisk.gz | cpio -i
@@ -26,21 +33,23 @@ if [ "$found" != 'run-parts /system/etc/init.d' ]; then
         echo "    user root" >> init.rc
         echo "    group root" >> init.rc
 fi
+# append ak boot at the end of init.rc
+if grep -q ak-post-boot init.rc; then
+        echo "Found AK kernel settings into ramdisk, nothing to do";
+else
+        sed 's/system\/xbin.*/system\/xbin:\/data\/ak/' -i init.environ.rc
+        echo "" >> init.rc
+        echo "service ak-post-boot /data/ak/ak-post-boot.sh" >> init.rc
+        echo "    class core" >> init.rc
+        echo "    user root" >> init.rc
+        echo "    oneshot" >> init.rc
+fi
 
-# make kernel open
-cp -vr ../extras/default.prop .
-
-# remove governor overrides, use kernel default
-sed -i '/\/sys\/devices\/system\/cpu\/cpu0\/cpufreq\/scaling_governor/d' init.mako.rc
-sed -i '/\/sys\/devices\/system\/cpu\/cpu1\/cpufreq\/scaling_governor/d' init.mako.rc
-sed -i '/\/sys\/devices\/system\/cpu\/cpu2\/cpufreq\/scaling_governor/d' init.mako.rc
-sed -i '/\/sys\/devices\/system\/cpu\/cpu3\/cpufreq\/scaling_governor/d' init.mako.rc
-
-# remove mpdecision and thermald
-sed -i '/mpdecision/{n; /class main$/d}' init.mako.rc
-sed -i '/thermald/{n; /class main$/d}' init.mako.rc
-sed -i '/mpdecision/d' init.mako.rc
-sed -i '/thermald/d' init.mako.rc
+# move synapse files
+rm -rf res/synapse
+mkdir res/synapse
+chmod 755 res/synapse
+cp -vr ../extras/synapse/* res/synapse
 
 find . | cpio -o -H newc | gzip > ../newramdisk.cpio.gz
 cd /
