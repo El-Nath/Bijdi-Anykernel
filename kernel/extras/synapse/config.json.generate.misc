@@ -1,6 +1,6 @@
 cat << CTAG
 {
-    name:Misc,
+    name:Misc config,
     elements:[
 	{ STitleBar:{
 		title:"Krait C-States Settings"
