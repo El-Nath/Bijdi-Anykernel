@@ -5,27 +5,61 @@ cat << CTAG
 		{ STitleBar:{
 			title:"CPU Frequency",
 		}},
-			{ SSeekBar:{
+			{ SOptionList:{
 				title:"CPU Min Frequency",
 				description:"Set the minimum CPU frequency.",
-				unit:"MHz",
-				step:2000,
-				weight:0.001,
-				min:`cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq`,
-				max:`cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq`,
 				default:`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq`,
-				action:"generic /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq"
+				action:"generic /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq",
+				values:[
+						81000,
+						162000,
+						270000,
+						384000,
+ 						486000,
+ 						594000,
+ 						702000,
+						810000,
+						918000,
+						1026000,
+						1134000,
+						1242000,
+						1350000,
+						1458000,
+						1512000,
+						1620000,
+						1728000,
+						1836000,
+						1890000,
+						1944000,
+						]
 			}},
-			{ SSeekBar:{
+			{ SOptionList:{
 				title:"CPU Max Frequency",
 				description:"Set the maximum CPU frequency.",
-				unit:"MHz",
-				step:2000,
-				weight:0.001,
-				min:`cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq`,
-				max:`cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq`,
 				default:`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq`,
-				action:"generic /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
+				action:"generic /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",
+				values:[
+						81000,
+						162000,
+						270000,
+						384000,
+ 						486000,
+ 						594000,
+ 						702000,
+						810000,
+						918000,
+						1026000,
+						1134000,
+						1242000,
+						1350000,
+						1458000,
+						1512000,
+						1620000,
+						1728000,
+						1836000,
+						1890000,
+						1944000,
+						]
 			}},	
 		{ STitleBar:{
 			title:"CPU Governor",
@@ -36,25 +70,32 @@ cat << CTAG
 				default:`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor`,
 				action:"generic /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor",
 				values:[
-						interactive,
+						intelliactive,
 						conservative,
 						ondemand,
 						conservative,
-						intelliactive,
+						interactive,
 						performance,
 						]
 			}},
+		{ STitleBar:{
+			title:"Hot-plug",
+		}},
 			{ SCheckBox:{
-                		label:"Intelli-Plug",
+                		description:"Hot-plug to replace MP-decision",
+				label:"Intelli-Plug",
                 		default:`cat /sys/module/intelli_plug/parameters/intelli_plug_active`,
                 		action:"generic /sys/module/intelli_plug/parameters/intelli_plug_active"
         		}},
 			{ SCheckBox:{
-                		label:"Eco-mode",
+                		description:"Special power savings mode Optimized for 2 cores",
+				label:"Eco-mode",
                 		default:`cat /sys/module/intelli_plug/parameters/eco_mode_active`,
                 		action:"generic /sys/module/intelli_plug/parameters/eco_mode_active"
         		}},
-		
+		{ STitleBar:{
+			title:"CPU Voltages",
+    		}},
     ]
 }
 CTAG
