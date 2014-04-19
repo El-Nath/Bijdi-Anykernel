@@ -54,12 +54,6 @@ cat << CTAG
 		title:"Free Memory"
       }},
 	{ SSeekBar:{
-		title:"Extra Free KBytes",
-		max:20000, unit:" kB",
-		default:`cat /proc/sys/vm/extra_free_kbytes`,
-				action:"generic /proc/sys/vm/extra_free_kbytes"
-	}},
-	{ SSeekBar:{
 		title:"Min Free KBytes",
 		max:10000, min:1024, unit:" kB",
 		default:`cat /proc/sys/vm/min_free_kbytes`,
