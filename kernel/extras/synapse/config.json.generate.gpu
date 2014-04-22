@@ -24,6 +24,27 @@ cat << CTAG
 `
 		}
 	}},
+	{ STitleBar:{
+		title:"GPU Governor"
+	}},
+		{ SSeekBar:{
+			title:"Simple Laziness",
+			description:"High = Perfomance >< Low = Battery life.",
+			step:1,
+			min:1,
+			max:9,
+			default:`cat /sys/module/msm_kgsl_core/parameters/simple_laziness`,
+			action:"generic /sys/module/msm_kgsl_core/parameters/simple_laziness"
+		}},
+		{ SSeekBar:{
+			title:"Simple Ramp Threshold",
+			description:"Low = Perfomance >< High = Battery life.",
+			step:1000,
+			min:1000,
+			max:10000,
+			default:`cat /sys/module/msm_kgsl_core/parameters/simple_ramp_threshold`,
+			action:"generic /sys/module/msm_kgsl_core/parameters/simple_ramp_threshold"
+		}},
 	{ SPane:{
 		title:"GPU Voltages"
     }},
