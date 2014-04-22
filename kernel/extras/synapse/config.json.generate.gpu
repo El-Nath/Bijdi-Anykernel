@@ -4,12 +4,15 @@ cat << CTAG
 {
     name:GPU,
     elements:[
+	{ SDescription:{
+                description:"Setting the Maximum and the Minimum Frequencies are done to Increases Performances or to gain more battery-life."
+        }},
 	{ STitleBar:{
 		title:"GPU Frequency Scaling"
 	}},
 	{ SLiveLabel:{
 		title:"GPU Frequency",
-		refresh:1500,
+		refresh:500,
 		style:italic,
 		action:"live gpufreq"
 	}},
@@ -45,19 +48,6 @@ cat << CTAG
 			default:`cat /sys/module/msm_kgsl_core/parameters/simple_ramp_threshold`,
 			action:"generic /sys/module/msm_kgsl_core/parameters/simple_ramp_threshold"
 		}},
-	{ SPane:{
-		title:"GPU Voltages"
-    }},
-`
-while read UVOLT UNIT; do
-	VOLTAGE=$(($VOLTAGE+1))
-	echo '{ SSeekBar:{
-	default:'$UVOLT',
-	title:"Voltage '${VOLTAGE}'",
-	action:"voltage gpuvolt '${VOLTAGE}'",
-	unit:"' ${UNIT}'", min:900, max:1150, step:5 }},'
-done < /sys/devices/system/cpu/cpu0/cpufreq/gpu_mv_table
-`
     ]
 }
 CTAG
