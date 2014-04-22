@@ -2,6 +2,59 @@ cat << CTAG
 {
     name:Misc config,
     elements:[
+    	{ STitleBar:{
+		title:"Thermal Control"
+	}},
+	{ SOptionList:{
+		title:"Intelli-Thermal",
+		description:"Intelli-Thermal Control",
+		default:`cat /sys/module/msm_thermal/parameters/enabled`,
+                action:"generic /sys/module/msm_thermal/parameters/enabled",
+        	values:[
+			Y,
+			N,
+		]
+	}},
+	{ SSeekBar:{
+		title:"Freq Throttle",
+		description:"Throttling Down Freq When Limit Reached",
+		max:100, 
+		min:10, 
+		step:1,
+		default:`cat /sys/module/msm_thermal/parameters/limit_temp_degC`,
+		action:"generic /sys/module/msm_thermal/parameters/limit_temp_degC"
+	}},
+	{ SSeekBar:{
+		title:"Core Offline",
+		description:"Offlining Core When Limit Reached",
+		max:100, 
+		min:10, 
+		step:1,
+		default:`cat /sys/module/msm_thermal/parameters/core_limit_temp_degC`,
+		action:"generic /sys/module/msm_thermal/parameters/core_limit_temp_degC"
+	}},
+	{ SSeekBar:{
+		title:"Temp Polling",
+		description:"Polling Temperatures",
+		max:600, 
+		min:100, 
+		step:10,
+		default:`cat /sys/module/msm_thermal/parameters/poll_ms`,
+		action:"generic /sys/module/msm_thermal/parameters/poll_ms"
+	}},
+	{ STitleBar:{
+		title:"Fast Charge"
+	}},
+	{ SOptionList:{
+		title:"Fast-Charging Option",
+                description:"0 = disable, 1 = Force AC",
+                default:`cat /sys/kernel/fast_charge/force_fast_charge`,
+                action:"generic /sys/kernel/fast_charge/force_fast_charge",
+		values:[
+			0,
+			1,
+			]
+        }},
 	{ STitleBar:{
 		title:"Krait C-States Settings"
 	}},
