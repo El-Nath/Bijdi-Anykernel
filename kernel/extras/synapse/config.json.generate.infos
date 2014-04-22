@@ -3,25 +3,59 @@ cat << CTAG
     name:Information,
     elements:[
         { SPane:{
-                title:"Disclaimer",
-                description:"What you've done is all yours,I am not responsible for anything that might happens to your device "
+		title:"Version",
+		description:"`cat /proc/version`",
+        }},	
+	{ SPane:{
+                title:"CPU Info"
         }},
-		{ SPane:{
-                title:"History",
-                description:"This kernel is based on AOKP + OMNI repo and its been built solely on purpose to work on AOKP/OMNI rom  ."
+	{ SDescription:{
+		description:"Minimum Frequency : $((`cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq` / 1000)) Mhz"
         }},
-        { SPane:{
-				title:"Version",
-				description:"`cat /proc/version`"
+	{ SDescription:{
+		description:"Maximum Frequency : $((`cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq` / 1000)) Mhz"
+        }},
+	{ SDescription:{
+		description:"`grep Processor /proc/cpuinfo`"
+        }},
+	{ SDescription:{
+		description:"`grep implementer /proc/cpuinfo`"
+        }},
+	{ SDescription:{
+		description:"`grep architecture /proc/cpuinfo`"
+        }},
+	{ SDescription:{
+		description:"`grep variant /proc/cpuinfo`"
+        }},
+	{ SDescription:{
+		description:"`grep part /proc/cpuinfo`"
+        }},
+	{ SDescription:{
+		description:"`grep revision /proc/cpuinfo`"
+        }},
+	{ SDescription:{
+		description:"`grep Hardware /proc/cpuinfo`"
+        }},
+	{ SDescription:{
+		description:"`grep Revision /proc/cpuinfo`"
+        }},
+	{ SDescription:{
+		description:"`grep Serial /proc/cpuinfo`"
+        }},
+	{ STitleBar:{
+		title:"CPU `grep -o "PVS: 1" /proc/last_kmsg``grep -o "PVS: 2" /proc/last_kmsg``grep -o "PVS: 3" /proc/last_kmsg``grep -o "PVS: 4" /proc/last_kmsg`"
+		}},
+		{ SDescription:{
+			description:"Values: > 0 = Faster, The higher the number/binning means that the supplied voltage at the same frequency is lower compared to the lower number/binning,which means the ability to Overclock/Underclock/Overvoltage/Undervoltage are better at higher number/binning."
 		}},
         { STitleBar:{
-				title:"Links"
-				}},
+		title:"Links"
+	}},
                 { SDescription:{
-					description:"Xda Thread: <br><a href='http://goo.gl/hkCTOq'>> Find 5 BIDJI </a>"
+				description:"Xda Thread: <br><a href='http://goo.gl/hkCTOq'>> Find 5 BIDJI </a>"
 				}},
-				{ SDescription:{
-					description:"Github Source: <br><a href='http://goo.gl/C4n5ae'>> Github </a>"
+		{ SDescription:{
+				description:"Github Source: <br><a href='http://goo.gl/C4n5ae'>> Github </a>"
 				}},
 	]
 }
