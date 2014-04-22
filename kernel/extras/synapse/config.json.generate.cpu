@@ -1,7 +1,24 @@
+VOLTAGE=0
+polar_to_bool() {
+  [ `cat $1` == "Y" ] && echo "1";
+  [ `cat $1` == "N" ] && echo "0";
+}
+
 cat << CTAG
 {
-	name:CPU,
-	elements:[
+    name:CPU,
+    elements:[
+	{ SDescription:{
+                description:"Setting the Maximum and the Minimum Frequencies can be done to Increase Performances or to gain more battery-life."
+        }},
+	{ STitleBar:{
+		title:"CPU Frequency Scaling"
+	}},
+	{ SLiveLabel:{
+		title:"CPU Frequency",
+		refresh:250,
+		action:"live cpufreq"
+	}},
 		{ STitleBar:{
 			title:"CPU Frequency",
 		}},

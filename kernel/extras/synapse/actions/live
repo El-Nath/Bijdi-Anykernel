@@ -1,9 +1,41 @@
 case $1 in
-  entropy)
-    echo "`cat /proc/sys/kernel/random/entropy_avail`";
+  cpufreq)
+    if [ -e /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq ]; then
+      CPUFREQONE="$((`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq` / 1000)) MHz";
+    else
+      CPUFREQONE=Offline;
+    fi
+
+    if [ -e /sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq ]; then
+      CPUFREQTWO="$((`cat /sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq` / 1000)) MHz";
+    else
+      CPUFREQTWO=Offline;
+    fi
+    
+    if [ -e /sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq ]; then
+      CPUFREQTHREE="$((`cat /sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq` / 1000)) MHz";
+    else
+      CPUFREQTHREE=Offline;
+    fi
+    
+    if [ -e /sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq ]; then
+      CPUFREQFOUR="$((`cat /sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq` / 1000)) MHz";
+    else
+      CPUFREQFOUR=Offline;
+    fi
+
+    echo "Core 1: $CPUFREQONE@nCore 2: $CPUFREQTWO@nCore 3: $CPUFREQTHREE@nCore 4: $CPUFREQFOUR";
   ;;
   gpufreq)
     GPUFREQ="$((`cat /sys/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/gpuclk` / 1000000)) MHz";
     echo "$GPUFREQ";
+    ;;
+  temp)
+     CPU="$(awk -v cpu=`cat /sys/module/msm_thermal/thermal_stats/statistics` 'BEGIN { print cpu / 1000 }')°C";
+ 
+     echo "CPU: $CPU";
+  ;;
+  entropy)
+    echo "`cat /proc/sys/kernel/random/entropy_avail`";
   ;;
 esac;
