@@ -94,8 +94,87 @@ cat << CTAG
                 		action:"generic /sys/module/intelli_plug/parameters/eco_mode_active"
         		}},
 		{ STitleBar:{
-			title:"CPU Voltages",
+			title:"CPUQuiet Power Management",
+		}},
+			{ SOptionList:{
+				title:"CPUQuiet Governor",
+				description:"Set the CPUquiet Governor.",
+				default:`cat /sys/devices/system/cpu/cpuquiet/current_governor`,
+				action:"generic /sys/devices/system/cpu/cpuquiet/current_governor",
+				values:[
+						runnable,
+						rq_stats,
+						load_stats,
+						]
+			}},
+		{ STitleBar:{
+			title:"Screen Off",
     		}},
+		{ SCheckBox:{
+                		description:"Settings to set Screen Off Freq",
+				label:"Screen Off Max Freq",
+                		default:`cat /sys/kernel/cpufreq_cap/screen_off_cap`,
+                		action:"generic /sys/kernel/cpufreq_cap/screen_off_cap"
+        	}},
+		{ SOptionList:{
+				title:"Max Freq when Screen Off",
+				description:"Set the max freq for screen off",
+				default:`cat /sys/kernel/cpufreq_cap/screen_off_max_freq`,
+				action:"generic /sys/kernel/cpufreq_cap/screen_off_max_freq",
+				values:[
+						81000,
+						162000,
+						270000,
+						384000,
+ 						486000,
+ 						594000,
+ 						702000,
+						810000,
+						918000,
+						1026000,
+						1134000,
+						1242000,
+						1350000,
+						1458000,
+						1512000,
+						1620000,
+						1728000,
+						1836000,
+						1890000,
+						1944000,
+						]
+		}},
+		{ SCheckBox:{
+                		description:"Settings to set Screen Off Max CPU",
+				label:"Screen Off Max CPU",
+                		default:`cat /sys/devices/system/cpu/cpuquiet/cpuquiet_driver/screen_off_cap`,
+                		action:"generic /sys/devices/system/cpu/cpuquiet/cpuquiet_driver/screen_off_cap"
+        	}},
+		{ SOptionList:{
+				title:"Max CPU when Screen Off",
+				description:"Set the max VPU for screen off",
+				default:`cat /sys/devices/system/cpu/cpuquiet/cpuquiet_driver/screen_off_max_cpus`,
+				action:"generic /sys/devices/system/cpu/cpuquiet/cpuquiet_driver/screen_off_max_cpus",
+				values:[
+						1,
+						2,
+						3,
+						4,
+						]
+		}},
+		{ STitleBar:{
+			title:"Multi Core Power Saving",
+    		}},
+		{ SOptionList:{
+				description:"Try to group tasks into the least cores possible, 0 = Disable, >0 = Most Agrresive",
+				default:`cat /sys/devices/system/cpu/sched_mc_power_savings`,
+				action:"generic /sys/devices/system/cpu/sched_mc_power_savings",
+				values:[
+						0,
+						1,
+						2,
+						]
+		}},
     ]
 }
 CTAG
