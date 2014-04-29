@@ -1,0 +1,63 @@
+#!/system/bin/sh
+
+VALUE=0
+MPS='0:"0: Disabled", 1:"1", 2:"2"'
+polar_to_bool() {
+  [ `cat $1` == "Y" ] && echo "1";
+  [ `cat $1` == "N" ] && echo "0";
+}
+
+cat << CTAG
+{
+    name:Temp Control,
+    elements:[
+    	{ STitleBar:{
+		title:"Temperatures"
+	}},
+	{ SLiveLabel:{
+		refresh:1000,
+        	style:bold,
+		action:"live temp"
+	}},
+	{ STitleBar:{
+		title:"Thermal Control"
+	}},
+	{ SCheckBox:{
+		label:"Intelli-Thermal",
+		description:"Intelli-Thermal Control",
+		default:`polar_to_bool /sys/module/msm_thermal/parameters/enabled`,
+                action:"generic /sys/module/msm_thermal/parameters/enabled"
+        }},
+	{ SSeekBar:{
+		title:"Freq Throttle",
+		description:"Throttling Down Freq When Limit Reached",
+		max:100, 
+		min:10,
+		unit:"°C", 
+		step:1,
+		default:`cat /sys/module/msm_thermal/parameters/limit_temp_degC`,
+		action:"generic /sys/module/msm_thermal/parameters/limit_temp_degC"
+	}},
+	{ SSeekBar:{
+		title:"Core Offline",
+		description:"Offlining Core When Limit Reached",
+		max:100, 
+		min:10,
+		unit:"°C", 
+		step:1,
+		default:`cat /sys/module/msm_thermal/parameters/core_limit_temp_degC`,
+		action:"generic /sys/module/msm_thermal/parameters/core_limit_temp_degC"
+	}},
+	{ SSeekBar:{
+		title:"Temp Polling",
+		description:"Polling Temperatures",
+		max:600, 
+		min:100,
+		unit:"ms", 
+		step:10,
+		default:`cat /sys/module/msm_thermal/parameters/poll_ms`,
+		action:"generic /sys/module/msm_thermal/parameters/poll_ms"
+	}},
+    ]
+}
+CTAG

@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 GPUFREQ='128000000:"128 MHz", 200000000:"200 MHz", 320000000:"320 MHz", 400000000:"400 MHz"'
 
 cat << CTAG
@@ -12,7 +14,7 @@ cat << CTAG
 	}},
 	{ SLiveLabel:{
 		title:"GPU Frequency",
-		refresh:500,
+		refresh:1000,
 		style:italic,
 		action:"live gpufreq"
 	}},

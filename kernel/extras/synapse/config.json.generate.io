@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 RQA='0:"0: Disabled", 1:"1", 2:"2"'
 NM='0:"0: All", 1:"1: Simple Only", 2:"2: None"'
 
@@ -29,20 +31,20 @@ cat << CTAG
 		description:"Maximum amount to read-ahead for filesystems on the internal storage.",
 		max:4096, min:128, unit:" kB", step:128,
 		default:`cat /sys/block/mmcblk0/queue/read_ahead_kb`,
-				action:"generic /sys/block/mmcblk0/queue/read_ahead_kb"
+		action:"generic /sys/block/mmcblk0/queue/read_ahead_kb"
 	}},
 	{ SSeekBar:{
 		title:"NR Requests",
 		description:"Maximum number of read (or write) requests that can be queued to the scheduler in the block layer.",
 		max:2048, min:128, step:128,
 		default:`cat /sys/block/mmcblk0/queue/nr_requests`,
-				action:"generic /sys/block/mmcblk0/queue/nr_requests"
+		action:"generic /sys/block/mmcblk0/queue/nr_requests"
 	}},
 	{ SSeekBar:{
 		title:"RQ Affinity",
 		description:"Try to have scheduler requests complete on the CPU core they were made from. Higher is more aggressive. Some kernels only support 0-1.",
 		default:`cat /sys/block/mmcblk0/queue/rq_affinity`,
-				action:"generic /sys/block/mmcblk0/queue/rq_affinity",
+		action:"generic /sys/block/mmcblk0/queue/rq_affinity",
 		values:{
 `
 			echo $RQA
@@ -53,7 +55,7 @@ cat << CTAG
 		title:"No Merges",
 		description:"Types of merges (prioritization) the scheduler queue for this storage device allows.",
 		default:`cat /sys/block/mmcblk0/queue/nomerges`,
-				action:"generic /sys/block/mmcblk0/queue/nomerges",
+		action:"generic /sys/block/mmcblk0/queue/nomerges",
 		values:{
 `
 			echo $NM

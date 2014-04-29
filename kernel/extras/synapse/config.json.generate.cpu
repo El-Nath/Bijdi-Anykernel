@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 VOLTAGE=0
 polar_to_bool() {
   [ `cat $1` == "Y" ] && echo "1";
@@ -12,11 +14,10 @@ cat << CTAG
                 description:"Setting the Maximum and the Minimum Frequencies can be done to Increase Performances or to gain more battery-life."
         }},
 	{ STitleBar:{
-		title:"CPU Frequency Scaling"
+		title:"CPU SPEED"
 	}},
 	{ SLiveLabel:{
-		title:"CPU Frequency",
-		refresh:250,
+		refresh:1500,
 		action:"live cpufreq"
 	}},
 		{ STitleBar:{
@@ -25,7 +26,10 @@ cat << CTAG
 			{ SOptionList:{
 				title:"CPU Min Frequency",
 				description:"Set the minimum CPU frequency.",
-				default:`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq`,
+				min:81000,
+				max:1944000,
+				default:81000,
+				unit:" KHz",
 				action:"generic /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq",
 				values:[
 						81000,
@@ -53,7 +57,10 @@ cat << CTAG
 			{ SOptionList:{
 				title:"CPU Max Frequency",
 				description:"Set the maximum CPU frequency.",
-				default:`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq`,
+				min:81000,
+				max:1944000,
+				default:1242000,
+				unit:" KHz",
 				action:"generic /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",
 				values:[
 						81000,
@@ -128,7 +135,7 @@ cat << CTAG
 			title:"Screen Off",
     		}},
 		{ SCheckBox:{
-                		description:"Settings to set Screen Off Freq",
+                		description:"Enable/Disable max Freq when screen off",
 				label:"Screen Off Max Freq",
                 		default:`cat /sys/kernel/cpufreq_cap/screen_off_cap`,
                 		action:"generic /sys/kernel/cpufreq_cap/screen_off_cap"
@@ -162,14 +169,14 @@ cat << CTAG
 						]
 		}},
 		{ SCheckBox:{
-                		description:"Settings to set Screen Off Max CPU",
+                		description:"Set max CPU when screen off",
 				label:"Screen Off Max CPU",
                 		default:`cat /sys/devices/system/cpu/cpuquiet/cpuquiet_driver/screen_off_cap`,
                 		action:"generic /sys/devices/system/cpu/cpuquiet/cpuquiet_driver/screen_off_cap"
         	}},
 		{ SOptionList:{
 				title:"Max CPU when Screen Off",
-				description:"Set the max VPU for screen off",
+				description:"Number of CPU when screen off",
 				default:`cat /sys/devices/system/cpu/cpuquiet/cpuquiet_driver/screen_off_max_cpus`,
 				action:"generic /sys/devices/system/cpu/cpuquiet/cpuquiet_driver/screen_off_max_cpus",
 				values:[

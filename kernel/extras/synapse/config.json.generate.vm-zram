@@ -1,49 +1,51 @@
+#!/system/bin/sh
+
 cat << CTAG
 {
     name:Memory,
     elements:[
       { SPane:{
-		title:"Virtual Memory",
-        description:"Tune the operation of the VM subsystem of the Linux kernel and the writeout of dirty data to disk. Swappiness also affects Z-RAM operation on kernels which support swaps."
+      	title:"Virtual Memory",
+      	description:"Tune the operation of the VM subsystem of the Linux kernel and the writeout of dirty data to disk. Swappiness also affects Z-RAM operation on kernels which support swaps."
       }},
       { SPane:{
-		title:"Dirty Writeout"
+      	title:"Dirty Writeout"
       }},
 	{ SSeekBar:{
 		title:"Dirty Background Bytes",
 		max:104857600, unit:" B", step:1024,
 		default:`cat /proc/sys/vm/dirty_background_bytes`,
-				action:"generic /proc/sys/vm/dirty_background_bytes"
+		action:"generic /proc/sys/vm/dirty_background_bytes"
 	}},
 	{ SSeekBar:{
 		title:"Dirty Background Ratio",
 		max:100, unit:"%",
 		default:`cat /proc/sys/vm/dirty_background_ratio`,
-				action:"generic /proc/sys/vm/dirty_background_ratio"
+		action:"generic /proc/sys/vm/dirty_background_ratio"
 	}},
 	{ SSeekBar:{
 		title:"Dirty Bytes",
 		max:104857600, unit:" B", step:1024,
 		default:`cat /proc/sys/vm/dirty_bytes`,
-				action:"generic /proc/sys/vm/dirty_bytes"
+		action:"generic /proc/sys/vm/dirty_bytes"
 	}},
 	{ SSeekBar:{
 		title:"Dirty Ratio",
 		max:100, unit:"%",
 		default:`cat /proc/sys/vm/dirty_ratio`,
-				action:"generic /proc/sys/vm/dirty_ratio"
+		action:"generic /proc/sys/vm/dirty_ratio"
 	}},
 	{ SSeekBar:{
 		title:"Dirty Expire Centisecs",
 		max:2500, step:50,
 		default:`cat /proc/sys/vm/dirty_expire_centisecs`,
-				action:"generic /proc/sys/vm/dirty_expire_centisecs"
+		action:"generic /proc/sys/vm/dirty_expire_centisecs"
 	}},
 	{ SSeekBar:{
 		title:"Dirty Writeback Centisecs",
 		max:2500, step:50,
 		default:`cat /proc/sys/vm/dirty_writeback_centisecs`,
-				action:"generic /proc/sys/vm/dirty_writeback_centisecs"
+		action:"generic /proc/sys/vm/dirty_writeback_centisecs"
 	}},
 	{ SCheckBox:{
                 label:"Highmem Is Dirtyable",
@@ -54,40 +56,46 @@ cat << CTAG
 		title:"Free Memory"
       }},
 	{ SSeekBar:{
+		title:"Extra Free KBytes",
+		max:25000, unit:" kB",
+		default:`cat /proc/sys/vm/extra_free_kbytes`,
+		action:"generic /proc/sys/vm/extra_free_kbytes"
+	}},
+	{ SSeekBar:{
 		title:"Min Free KBytes",
 		max:10000, min:1024, unit:" kB",
 		default:`cat /proc/sys/vm/min_free_kbytes`,
-				action:"generic /proc/sys/vm/min_free_kbytes"
+		action:"generic /proc/sys/vm/min_free_kbytes"
 	}},
 	{ SSeekBar:{
 		title:"Min Free Order Shift",
 		max:10,
 		default:`cat /proc/sys/vm/min_free_order_shift`,
-				action:"generic /proc/sys/vm/min_free_order_shift"
+		action:"generic /proc/sys/vm/min_free_order_shift"
 	}},
 	{ SSeekBar:{
 		title:"Overcommit Memory",
 		max:2,
 		default:`cat /proc/sys/vm/overcommit_memory`,
-				action:"generic /proc/sys/vm/overcommit_memory"
+		action:"generic /proc/sys/vm/overcommit_memory"
         }},
 	{ SSeekBar:{
 		title:"Overcommit Ratio",
 		max:100, unit:"%",
 		default:`cat /proc/sys/vm/overcommit_ratio`,
-				action:"generic /proc/sys/vm/overcommit_ratio"
+		action:"generic /proc/sys/vm/overcommit_ratio"
 	}},
 	{ SSeekBar:{
 		title:"Panic On OOM",
 		max:2,
 		default:`cat /proc/sys/vm/panic_on_oom`,
-				action:"generic /proc/sys/vm/panic_on_oom"
+		action:"generic /proc/sys/vm/panic_on_oom"
         }},
 	{ SSeekBar:{
 		title:"VFS Cache Pressure",
 		max:200,
 		default:`cat /proc/sys/vm/vfs_cache_pressure`,
-				action:"generic /proc/sys/vm/vfs_cache_pressure"
+		action:"generic /proc/sys/vm/vfs_cache_pressure"
 	}},
 	{ SCheckBox:{
                 label:"OOM Dump Tasks",
@@ -106,19 +114,19 @@ cat << CTAG
 		title:"Ext-Frag Threshold",
 		max:1000, min:-1,
 		default:`cat /proc/sys/vm/extfrag_threshold`,
-				action:"generic /proc/sys/vm/extfrag_threshold"
+		action:"generic /proc/sys/vm/extfrag_threshold"
 	}},
 	{ SSeekBar:{
 		title:"Per-CPU Pagelist Fraction (1/x)",
 		max:200,
 		default:`cat /proc/sys/vm/percpu_pagelist_fraction`,
-				action:"generic /proc/sys/vm/percpu_pagelist_fraction"
+		action:"generic /proc/sys/vm/percpu_pagelist_fraction"
 	}},
 	{ SSeekBar:{
 		title:"Stat Interval",
 		max:100, min:1, unit:" s",
 		default:`cat /proc/sys/vm/stat_interval`,
-				action:"generic /proc/sys/vm/stat_interval"
+		action:"generic /proc/sys/vm/stat_interval"
 	}},
 	{ SCheckBox:{
                 label:"Scan Unevictable Pages",
@@ -132,7 +140,7 @@ cat << CTAG
 		title:"Page-Cluster",
 		max:20,
 		default:`cat /proc/sys/vm/page-cluster`,
-				action:"generic /proc/sys/vm/page-cluster"
+		action:"generic /proc/sys/vm/page-cluster"
 	}},
 	{ SSeekBar:{
        		title:"Swappiness",

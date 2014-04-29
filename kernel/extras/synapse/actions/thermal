@@ -1,0 +1,15 @@
+reset_uci() {
+  /sbin/uci reset;
+  /sbin/uci;
+}
+
+if [ -f $1 ];then
+	if [[ ! -z $2 ]]; then
+		echo $2 > $1
+		[ "$1" == "/sys/module/msm_thermal/parameters/enabled" ] && echo "1" > /sys/module/msm_thermal/parameters/enabled
+		reset_uci;
+	fi
+	
+	echo `cat $1`
+
+fi

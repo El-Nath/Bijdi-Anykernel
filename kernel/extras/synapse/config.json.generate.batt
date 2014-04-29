@@ -1,0 +1,35 @@
+#!/system/bin/sh
+
+cat << CTAG
+{
+    name:Battery,
+    elements:[
+	{ SLiveLabel:{
+		refresh:6500,
+        	style:bold,
+		action:"live currvolt"
+	}},
+	{ SLiveLabel:{
+		refresh:1500,
+		action:"live battstat"
+	}},
+	{ SLiveLabel:{
+		refresh:1000,
+		action:"live chgtype"
+	}},
+	{ STitleBar:{
+		title:"Fast Charge"
+	}},
+	{ SOptionList:{
+		title:"Fast-Charging Option",
+                description:"0 = disable, 1 = Force AC",
+                default:`cat /sys/kernel/fast_charge/force_fast_charge`,
+                action:"generic /sys/kernel/fast_charge/force_fast_charge",
+		values:[
+			0,
+			1,
+			]
+        }},
+    ]
+}
+CTAG

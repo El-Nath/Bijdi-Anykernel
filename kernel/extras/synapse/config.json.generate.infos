@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 cat << CTAG
 {
     name:Information,
@@ -44,19 +46,19 @@ cat << CTAG
         }},
 	{ STitleBar:{
 		title:"CPU `grep -o "PVS: 1" /proc/last_kmsg``grep -o "PVS: 2" /proc/last_kmsg``grep -o "PVS: 3" /proc/last_kmsg``grep -o "PVS: 4" /proc/last_kmsg`"
-		}},
-		{ SDescription:{
-			description:"Values: > 0 = Faster, The higher the number/binning means that the supplied voltage at the same frequency is lower compared to the lower number/binning,which means the ability to Overclock/Underclock/Overvoltage/Undervoltage are better at higher number/binning."
-		}},
+	}},
+	{ SDescription:{
+		description:"Values: > 0 = Faster, The higher the number/binning means that the supplied voltage at the same frequency is lower compared to the lower number/binning,which means the ability to Overclock/Underclock/Overvoltage/Undervoltage are better at higher number/binning."
+	}},
         { STitleBar:{
 		title:"Links"
 	}},
-                { SDescription:{
-				description:"Xda Thread: <br><a href='http://goo.gl/hkCTOq'>> Find 5 BIDJI </a>"
-				}},
-		{ SDescription:{
-				description:"Github Source: <br><a href='http://goo.gl/C4n5ae'>> Github </a>"
-				}},
+	{ SDescription:{
+		description:"Xda Thread: <br><a href='http://goo.gl/hkCTOq'>> Find 5 BIDJI </a>"
+	}},
+	{ SDescription:{
+		description:"Github Source: <br><a href='http://goo.gl/C4n5ae'>> Github </a>"
+	}},
 	]
 }
 CTAG

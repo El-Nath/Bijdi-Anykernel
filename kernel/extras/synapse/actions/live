@@ -31,9 +31,19 @@ case $1 in
     echo "$GPUFREQ";
     ;;
   temp)
-     CPU="$(awk -v cpu=`cat /sys/module/msm_thermal/thermal_stats/statistics` 'BEGIN { print cpu / 1000 }')°C";
- 
-     echo "CPU: $CPU";
+  echo $(cat /sys/class/thermal/thermal_zone5/temp)°C
+  ;;
+  battemp)
+  echo $(($(cat /sys/class/power_supply/battery/temp) / 10))°C 
+  ;;
+  battstat)
+  echo $(cat /sys/class/power_supply/battery/status) "|"  $(cat /sys/class/power_supply/battery/charge_type)
+  ;;
+  chgtype)
+  echo $(($(cat /sys/class/power_supply/battery/temp) / 10))°C  "|" $(cat /sys/class/power_supply/battery/health)
+  ;;
+  currvolt)
+  echo $(($(cat /sys/class/power_supply/battery/voltage_now) / 1000))mV
   ;;
   entropy)
     echo "`cat /proc/sys/kernel/random/entropy_avail`";
