@@ -1,0 +1,49 @@
+cat << CTAG
+{
+	name:Sound,
+		elements:[
+			
+			`if [ -d "/sys/kernel/sound_control_3" ]; then
+			
+				echo '{ SPane:{
+						title:"Gain Controls",
+					}},
+						{ SSeekBar:{
+							title:"Headphone (Left & Right)",
+							min:-30,
+							max:10,
+							default:0,
+							action:"soundfaux /sys/kernel/sound_control_3/gpl_headphone_gain",
+						}},
+						{ SSeekBar:{
+							title:"Speaker",
+							min:-30,
+							max:10,
+							default:0,
+							action:"soundfaux /sys/kernel/sound_control_3/gpl_speaker_gain",
+						}},
+						{ SSeekBar:{
+							title:"Headphone PowerAmp (Left & Right)",
+							min:-6,
+							max:6,
+							default:0,
+							action:"soundfaux /sys/kernel/sound_control_3/gpl_headphone_pa_gain",
+						}},
+						{ SSeekBar:{
+							title:"Handset Microphone",
+							min:-30,
+							max:10,
+							default:0,
+							action:"soundfaux /sys/kernel/sound_control_3/gpl_mic_gain",
+						}},
+						{ SSeekBar:{
+							title:"Camcorder Microphone",
+							min:-30,
+							max:10,
+							default:0,
+							action:"soundfaux /sys/kernel/sound_control_3/gpl_cam_mic_gain",
+						}},'
+			fi`
+		]
+}
+CTAG
