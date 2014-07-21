@@ -4,6 +4,16 @@ cat << CTAG
 {
     name:Memory,
     elements:[
+    { SPane:{
+		title:"Z-RAM",
+		description:"Attempts to increase performance by avoiding paging on physical storage, instead using a compressed virtual device in RAM. Paging takes place in RAM until it is necessary to use the swap space on physical storage."
+        }},
+	{ SSeekBar:{
+       		title:"Disk 1",
+                min:0, max:500, unit:" MB", step:10,
+                default:0,
+                action:"zram zram0"
+	}},
       { SPane:{
       	title:"Virtual Memory",
       	description:"Tune the operation of the VM subsystem of the Linux kernel and the writeout of dirty data to disk. Swappiness also affects Z-RAM operation on kernels which support swaps."
@@ -147,16 +157,6 @@ cat << CTAG
                 max:100, unit:"%", step:5,
                 default:`cat /proc/sys/vm/swappiness`,
                 action:"generic /proc/sys/vm/swappiness"
-	}},
-        { SPane:{
-		title:"Z-RAM",
-		description:"Attempts to increase performance by avoiding paging on physical storage, instead using a compressed virtual device in RAM. Paging takes place in RAM until it is necessary to use the swap space on physical storage."
-        }},
-	{ SSeekBar:{
-       		title:"Disk 1",
-                min:0, max:500, unit:" MB", step:10,
-                default:0,
-                action:"zram zram0"
 	}},
     ]
 }
