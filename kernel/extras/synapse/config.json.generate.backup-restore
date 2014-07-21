@@ -2,7 +2,7 @@
 
 cat << CTAG
 {
-    name:Backup Restore,
+    name:Profiles,
     elements:[
 
 	{ STitleBar:{
