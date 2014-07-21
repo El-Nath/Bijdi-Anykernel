@@ -1,5 +1,6 @@
 #!/system/bin/sh
 
+PRFL='0:"Balance", 1:"Perfomance", 2:"Conservative", 3:"Eco-Performance", 4:"Eco-Conservative" '
 VOLTAGE=0
 polar_to_bool() {
   [ `cat $1` == "Y" ] && echo "1";
@@ -20,6 +21,13 @@ cat << CTAG
 		refresh:1500,
 		action:"live cpufreq"
 	}},
+	{ SPane:{
+		title:"Times:"
+	}},
+		{ SLiveLabel:{
+			refresh:1000,
+			action:"live time"
+		}},
 		{ STitleBar:{
 			title:"CPU Frequency",
 		}},
@@ -86,37 +94,96 @@ cat << CTAG
 						]
 			}},	
 		{ STitleBar:{
-			title:"CPU Governor",
+			title:"CPU Governors",
 		}},
 			{ SOptionList:{
-				title:"CPU Governor",
-				description:"Set the CPU Governor.",
+				title:"Active Governor",
+				description:"Set the CPU Governor and tuneable settings",
 				default:`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor`,
-				action:"generic /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor",
-				values:[
-						intelliactive,
-						conservative,
-						ondemand,
-						conservative,
-						interactive,
-						performance,
-						]
+					action:"cpuset /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor",
+					values:[
+						`for CPUGOV in \`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors\` ; do
+						echo "\"$CPUGOV\","
+						done`
+					],
+					notify:[
+						{
+							on:APPLY,
+							do:[ REFRESH, CANCEL ],
+							to:"/sys/devices/system/cpu/cpufreq"
+						},
+						{
+							on:REFRESH,
+							do:REFRESH,
+							to:"/sys/devices/system/cpu/cpufreq"
+						}
+					]
+				}},
+			{ STreeDescriptor:{
+				path:"/sys/devices/system/cpu/cpufreq",
+				generic: {
+					directory: {
+						STreeDescriptor:{
+							generic: {
+								directory: {},
+								element: {
+									SGeneric: { title:"@BASENAME" }
+								}
+							},
+							exclude: [ "sampling_rate", "boostpulse" ]
+						},
+					}
+				},
+				exclude: [ "overall_stats", "vdd_table" ]
 			}},
+		{ SButton:{
+			label:"Refresh",
+			action:"restorebackup restart"
+		}},
 		{ STitleBar:{
 			title:"Hot-plug",
 		}},
 			{ SCheckBox:{
-                		description:"Hot-plug to replace MP-decision",
+                		description:"Hot-plug to replace MP-decision by Faux",
 				label:"Intelli-Plug",
                 		default:`cat /sys/module/intelli_plug/parameters/intelli_plug_active`,
                 		action:"generic /sys/module/intelli_plug/parameters/intelli_plug_active"
         		}},
 			{ SCheckBox:{
-                		description:"Special power savings mode Optimized for 2 cores",
-				label:"Eco-mode",
-                		default:`cat /sys/module/intelli_plug/parameters/eco_mode_active`,
-                		action:"generic /sys/module/intelli_plug/parameters/eco_mode_active"
+                		description:"For quicker response",
+				label:"Touch-boost",
+                		default:`cat /sys/module/intelli_plug/parameters/touch_boost_active`,
+                		action:"generic /sys/module/intelli_plug/parameters/touch_boost_active"
         		}},
+			{ SSeekBar:{
+				title:"Hot-plug Profile",
+				description:"Set the desired profiles for hot-plugging.",
+				default:`cat /sys/module/intelli_plug/parameters/nr_run_profile_sel`,
+				action:"generic /sys/module/intelli_plug/parameters/nr_run_profile_sel",
+				values:{
+`
+						echo $PRFL
+`
+					}
+			}},
+		
+		`if [ -f "/sys/kernel/msm_cpufreq_limit/cpufreq_limit" ]; then
+			SC=\`cat /sys/kernel/msm_cpufreq_limit/cpufreq_limit\`
+			
+				echo '{ SSeekBar:{
+						title:"CPU Frequency Limit (Snakecharmer)",
+						description:"Allows you to set a specific Max CPU frequency to ALL cores at the same time.",
+						default:'$SC',
+						action:"generic /sys/kernel/msm_cpufreq_limit/cpufreq_limit",
+						values:{'
+							for SNAKE in \`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies\` ; do
+							LABEL=$((SNAKE / 1000))
+							echo "$SNAKE:\"${LABEL} MHz\", "
+							done;
+					echo '}
+				}},'
+			fi`
+		
 		{ STitleBar:{
 			title:"CPUQuiet Power Management",
 		}},
