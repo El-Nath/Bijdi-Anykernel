@@ -22,6 +22,18 @@ cat << CTAG
 `
 		]
 	}},
+	{ SPane:{
+		title:"I/O Scheduler Tunables"
+	}},
+	{ STreeDescriptor:{
+		path:"/sys/block/mmcblk0/queue/iosched",
+		generic: {
+			directory: {},
+			element: {
+				SGeneric: { title:"@BASENAME" }
+			}
+		},
+	}},
         { SPane:{
 		title:"Block Queue",
 		description:"Set the internal storage block device I/O parameters."
