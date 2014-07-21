@@ -8,6 +8,21 @@ cat << CTAG
     name:Misc config,
     elements:[
     	{ STitleBar:{
+		title:"S2W and DT2W"
+        }},
+	{ SCheckBox:{
+                description:"Sweep 2 Wake",
+                label:"Enable Swiping bottom area to wake",
+                default:`cat /sys/android_touch/s2w_enabled`,
+                action:"generic /sys/android_touch/s2w_enabled"
+        }},
+	{ SCheckBox:{
+                description:"Double Tap 2 Wake",
+                label:"Enable Double tapping bottom area to wake",
+                default:`cat /sys/android_touch/dt2w_enabled`,
+                action:"generic /sys/android_touch/dt2w_enabled"
+        }},
+	{ STitleBar:{
 		title:"Network"
         }},
 	{ SOptionList:{
